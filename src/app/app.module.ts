@@ -19,6 +19,7 @@ import { ProductListPage } from '../pages/product-list/product-list';
 
 
 import { HttpService,CacheService,ProductService } from '../providers/providers';
+import { ArticleServiceProvider } from '../providers/article-service/article-service';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { HttpService,CacheService,ProductService } from '../providers/providers'
     CacheService,
     HttpService,
     ProductService,
+    ArticleServiceProvider,
   ]
 })
 export class AppModule {}
