@@ -6,8 +6,17 @@
 -->
 <ion-header>
 
+   
   <ion-navbar>
-    <ion-title>product-list</ion-title>
+    
+
+    <ion-title>{{pageTitle}}</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only   (click)="goSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -25,7 +34,13 @@
   </ion-refresher>
 
   <ion-list>
-        <ion-item *ngFor="let i of items">{{i}}</ion-item>
+        <ion-item  (click)="openItem(item)" *ngFor="let item of items">
+          <ion-row >
+              <ion-col col-6 >{{item.name}}</ion-col>
+              <ion-col col-3 class="change" [class.price-up]="item.change > 0" [class.price-none]="item.change == 0" [class.price-down]="item.change < 0">{{item.change}}</ion-col>
+              <ion-col col-3 text-center class="change-rate" [class.rate-up]="item.change > 0" [class.rate-none]="item.change == 0" [class.rate-down]="item.change <= 0">{{item.changed_rate}}%</ion-col>
+          </ion-row> 
+        </ion-item>
   </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">

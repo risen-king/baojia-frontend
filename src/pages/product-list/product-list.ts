@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+ 
+
+import { ProductService } from '../../providers/providers';
 
 /**
  * Generated class for the ProductListPage page.
@@ -15,46 +18,80 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProductListPage {
 
-  items = [];
+  public pageTitle: string = '市场走势';
+  public error: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-      for (let i = 0; i < 30; i++) {
-        this.items.push( this.items.length );
-      }
+  public items : Array<any>;
+  public nextPage : string = '';
+
+  constructor(
+      public navCtrl: NavController, 
+      public navParams: NavParams,
+      public productService:ProductService
+    ) {
+       
+      this.getProducts(); 
   }
+
+  getProducts(page:string=''):Promise<any>{
+    return this.productService
+            .getList(page)
+            .then( data =>  {
+                    
+                    this.nextPage = data._links && data._links.next ? data._links.next.href : '';
+
+                    this.items = data.items ? data.items : [] ;
+
+                    return this.items;
+                    
+                  } 
+            );
+          
+  }
+
+   doInfinite() {
+      console.log('Begin async operation');
+
+      return this.getProducts(this.nextPage)
+            .then(data => this.items = this.items.concat(data) );
+  }
+
+  doRefresh(refresher) {
+    //console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      //console.log('Async operation has ended');
+
+      this.getProducts(); 
+
+      refresher.complete();
+    }, 2000);
+  }
+
+ 
+
+
+ 
+
+  /**
+   * Navigate to the detail page for this item.
+   */
+  openItem(item: any) {
+      this.navCtrl.push('ProductDetailPage', {
+          item: item
+      });
+  }
+
+  goSearch(){
+      this.navCtrl.push('ProductSearchPage');
+  }
+
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductListPage');
   }
 
-   doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 2000);
-  }
-
-  doInfinite() {
-    console.log('Begin async operation');
-
-    return new Promise((resolve)=>{
-
-        setTimeout(() => {
-          for (let i = 0; i < 30; i++) {
-              this.items.push( this.items.length );
-          }
-
-          console.log('Async operation has ended');
-         
-          resolve();
-
-        }, 500);
-
-    });
-
-    
-  }
+   
 
 }
