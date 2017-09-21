@@ -20,6 +20,7 @@ import { ProductListPage } from '../pages/product-list/product-list';
 
 import { HttpService,CacheService,ProductService } from '../providers/providers';
 import { ArticleServiceProvider } from '../providers/article-service/article-service';
+import { BdmapService } from '../providers/bdmap-service/bdmap-service';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ArticleServiceProvider } from '../providers/article-service/article-ser
     HttpService,
     ProductService,
     ArticleServiceProvider,
+    BdmapService,
   ]
 })
 export class AppModule {}

@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 export class CacheServiceProvider {
 
   constructor() {
-    console.log('Hello CacheServiceProvider Provider');
+    
   }
 
   write(key: string, value: any) {
