@@ -46,14 +46,17 @@
         <!-- end 轮播图-->  
     </div>
 
-    <ion-list class="news-list" *ngFor="let item of items">
-        <ion-item (click)="openItem(item)">   
+    <ion-list class="news-list">
+        <ion-item *ngFor="let item of items" (click)="openItem(item)"  text-wrap >   
             <ion-thumbnail item-end><img [src]="item.thumb" /></ion-thumbnail>
+            
             <h2>{{item.title}}</h2>
+            
             <div class="item-tag">
                 <span class="item-time">08:19</span>
                 <span class="item-hit">&nbsp;&nbsp; | &nbsp;&nbsp;29967阅读</span>
             </div>
+
         </ion-item>
     </ion-list>  
 

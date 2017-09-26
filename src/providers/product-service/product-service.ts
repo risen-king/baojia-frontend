@@ -29,10 +29,11 @@ export class ProductServiceProvider {
   
 
   constructor(
-    public http: HttpService,
-    public cache: CacheService) {
+        public http: HttpService,
+        public cache: CacheService
+    ) {
         console.log('Hello ProductServiceProvider Provider');
-  }
+    }
 
   getList(page: string = '') :Promise<any>{
        

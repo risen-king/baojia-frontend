@@ -1,9 +1,8 @@
 export class UserModel{
     id: number;
+    mobile:string;
     username: string;
     email: string;
-    password: string;
-    token: string;
-    mobile:string;
-    avatar:String;
+    access_token: string;
+    avatar?:String;
 }

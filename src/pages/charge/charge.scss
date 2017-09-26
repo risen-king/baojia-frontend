@@ -1,0 +1,95 @@
+page-charge {
+
+    .circle-radio-group{
+            .radio {
+                    .radio-icon {
+                        border-radius: 50%;
+                        position: relative;
+                        width: 21px;
+                        height: 21px;
+                        border-width: 1px;
+                        border-style: solid;
+                        border-color: #c8c7cc;
+                        background-color: #fff;
+                    }
+                    .radio-inner {
+                            border-color: #fff;
+                    }
+
+                     
+
+                    .radio-checked {
+                        border-color: #f53d3d;
+                        background-color: #f53d3d; 
+
+                        .radio-inner{
+                                left: 7px;
+                                top: 4px;
+                                position: absolute;
+                                width: 4px;
+                                height: 9px;
+                                border-width: 1px;
+                                border-top-width: 0;
+                                border-left-width: 0;
+                                border-style: solid;
+                                border-color: #fff;
+                                -webkit-transform: rotate(45deg);
+                                transform: rotate(45deg);
+                        }
+
+                        
+                    }
+            }
+
+            .item-radio-checked.item ion-label,
+            {
+                color: inherit; 
+            }
+
+            
+    }
+
+    .square-radio-group{
+        .item-radio{
+            padding-left: 16px;
+            padding-right: 16px;
+            text-align: center;
+            background-color: #f4f4f4;
+            position: relative;
+
+            .radio {
+                position: absolute;
+                left: 0;
+                top: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                
+            }
+        }
+
+        .item-ios.item-block .item-inner {
+            padding-right: 0;
+            
+        }
+
+        .label-ios,.label-md{
+            margin: 0
+        }
+        
+        .item-radio-checked{
+            border-color: #f53d3d;
+            background-color: #f53d3d; 
+            border-radius: 5px;
+            color: white
+        }
+        
+
+        .item-radio-checked.item ion-label {
+                color: inherit;
+        }
+    }
+    
+   
+}

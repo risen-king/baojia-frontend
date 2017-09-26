@@ -13,13 +13,13 @@
 </ion-header>
 
 
-<ion-content *ngIf="item">
+<ion-content  padding>
   
   <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + thumb + ')'"></div> 
 
-  <div class="item-detail" padding  >
-      <h2>{{item.title}}</h2>
-      <div>{{item.content}}</div>
+  <div class="item-detail"  >
+      <h2 class="item-title">{{item?.title}}</h2>
+      <div class="item-content" [innerHTML]="item?.content"> </div>
   </div> 
 
 </ion-content>

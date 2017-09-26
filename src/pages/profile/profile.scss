@@ -1,0 +1,19 @@
+page-profile {
+    #file-input{
+        width:0;
+        height: 0px;
+        display:none;
+        visibility: hidden; 
+    }
+
+    .avatar-image {
+        width: 65px;
+        height: 65px;
+        margin: 2px;
+        border-radius: 50%;
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+}
