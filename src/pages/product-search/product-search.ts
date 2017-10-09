@@ -23,9 +23,10 @@ import { ProductService } from '../../providers/providers';
   templateUrl: 'product-search.html',
 })
 export class ProductSearchPage {
+    public pageTitle: string = '搜索';
 
-  items: Array<any>;
-  searchTermStream : Subject<any>;
+    items: Array<any>;
+    searchTermStream : Subject<any>;
   
 
   constructor(

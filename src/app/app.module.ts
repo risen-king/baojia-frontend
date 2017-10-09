@@ -10,12 +10,12 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+//import { AboutPage } from '../pages/about/about';
+//import { ContactPage } from '../pages/contact/contact';
+//import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { ProductListPage } from '../pages/product-list/product-list';
+//import { ProductListPage } from '../pages/product-list/product-list';
 
 
 import { HttpService,CacheService,ProductService } from '../providers/providers';
@@ -24,25 +24,30 @@ import { BdmapService } from '../providers/bdmap-service/bdmap-service';
 import { UserService } from '../providers/user-service/user-service';
 import { NoticeService } from '../providers/notice-service/notice-service';
 
+
+
+
+
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+   // AboutPage,
+    //ContactPage,
+   // HomePage,
     TabsPage,
-
-    ProductListPage
+ 
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp,{
+        preloadModules: true ,
         backButtonText: '',  
         iconMode: 'ios',  
         modalEnter: 'modal-slide-in',  
         modalLeave: 'modal-slide-out',  
         tabsPlacement: 'bottom',  
-        pageTransition: 'ios'  
+        pageTransition: 'ios' ,
+        
     }),
 
     HttpModule,
@@ -52,12 +57,11 @@ import { NoticeService } from '../providers/notice-service/notice-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    //AboutPage,
+    //ContactPage,
+    //HomePage,
     TabsPage,
-
-    ProductListPage
+ 
   ],
   providers: [
     StatusBar,
@@ -71,6 +75,7 @@ import { NoticeService } from '../providers/notice-service/notice-service';
     BdmapService,
     UserService,
     NoticeService,
+ 
     
   ]
 })

@@ -13,14 +13,14 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content *ngIf="user">
   
   <ion-list>
       <input type="file" id="file-input" #fileInput   name="files[]" />
       <button ion-item>
           头像
           <ion-thumbnail item-end (click)="getPicture(event)">
-                <img  class="avatar-image" src="{{user.avatar}}">
+                <img  class="avatar-image" src="{{user?.avatar}}">
           </ion-thumbnail>
       </button>
 

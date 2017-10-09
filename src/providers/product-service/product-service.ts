@@ -24,7 +24,7 @@ export class ProductServiceProvider {
 
   listsUrl: string  = 'products';
   searchUrl: string = 'products/search/';
-  pricesUrl: string = 'prices/index/';
+  pricesUrl: string = 'products/prices/';
 
   
 
@@ -40,8 +40,9 @@ export class ProductServiceProvider {
     let url = page ? page : this.listsUrl;
     
     let _data = this.cache.read( url ) as any[];
+    _data = null;
 
-    if( _data = null ){
+    if( _data ){
         return   Observable.of(_data ).toPromise();
     }
 

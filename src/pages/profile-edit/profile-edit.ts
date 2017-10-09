@@ -29,8 +29,7 @@ export class ProfileEditPage {
   public pageTitle: string;
   public profileForm: FormGroup;
   
-  //用户对象
-  public user: UserModel ;
+  
   
   //编辑类型
   public editType:string;
@@ -51,25 +50,24 @@ export class ProfileEditPage {
       public noticeService: NoticeService
   ) {
 
-    this.editType = this.navParams.get('type');
-   
-    if(!this.editType ){
-        this.navCtrl.push('ProfilePage'); 
-        return ;
-    }else{
-        this.user = this.userService.user;
-        this.initForm(this.editType,this.user);
-
-    }
+        this.editType = this.navParams.get('type');
     
-    
+        if(!this.editType ){
+            this.navCtrl.push('ProfilePage'); 
+            return ;
+        }else{
+            this.initForm(this.editType);
+        }
  
   }
 
-   
+  get user (){
+     return this.userService.getUser();
+  }
+ 
+ 
 
-
-  initForm(editType:string,user:any){
+  initForm(editType:string){
 
     if(editType == 'email'){
         this.pageTitle = '修改邮箱';
@@ -126,7 +124,7 @@ export class ProfileEditPage {
 
     } 
       
-    this.profileForm.patchValue(user);
+    this.profileForm.patchValue(this.user);
 
   }
 
@@ -134,13 +132,14 @@ export class ProfileEditPage {
   submitForm(data, _event) {
     
     _event.preventDefault();
-
-    this.userService.update(data);
-
-    this.navCtrl.pop();
-
-    console.log(this.userService.user);
-
+    console.log(data);
+    this.userService
+        .update(data)
+        .subscribe((res)=>{
+            //this.initForm(this.editType);
+            this.navCtrl.pop();
+        });
+ 
   }
   
   //获取验证码

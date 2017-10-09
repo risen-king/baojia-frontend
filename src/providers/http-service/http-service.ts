@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, URLSearchParams,Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+ 
+
+import { UserService } from '../user-service/user-service';
+import { CacheServiceProvider as CacheService} from '../cache-service/cache-service';
+import { UserModel } from '../../models/user-model';
+
 /*
   Generated class for the HttpServiceProvider provider.
 
@@ -11,16 +17,37 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class HttpServiceProvider {
 
-  url: string = 'http://api.baojia.local/v1';
+  headers: Headers;
+  defaultOptions: RequestOptions;
+  url: string = 'http://api.maybe88.com/v1';
+  
 
-  constructor(public http: Http) {
-    console.log('Hello HttpServiceProvider Provider');
+
+  constructor(
+    public http: Http,
+    public cacheService: CacheService
+  ) {
+ 
+
+      let user = <UserModel>this.cacheService.read('user');
+      let token = user ? user.access_token  : '';
+      
+      this.headers = new Headers({
+          'Authorization': token 
+      });
+
+      this.defaultOptions = new RequestOptions({headers:this.headers});
+
+      //console.log('Hello HttpServiceProvider Provider');
   }
 
+ 
+
+
+
   get(endpoint: string, params?: any, options?: RequestOptions) {
-    if (!options) {
-      options = new RequestOptions();
-    }
+     
+    options = this.defaultOptions.merge(options);
 
     // Support easy query params for GET requests
     if (params) {
@@ -40,23 +67,36 @@ export class HttpServiceProvider {
   }
 
   post(endpoint: string, body: any, options?: RequestOptions) {
+
+    options = this.defaultOptions.merge(options);
+
     return this.http.post(this.url + '/' + endpoint, body, options);
   }
 
   put(endpoint: string, body: any, options?: RequestOptions) {
+
+    options = this.defaultOptions.merge(options);
+
     return this.http.put(this.url + '/' + endpoint, body, options);
   }
 
   delete(endpoint: string, options?: RequestOptions) {
+
+    options = this.defaultOptions.merge(options);
+
     return this.http.delete(this.url + '/' + endpoint, options);
   }
 
   patch(endpoint: string, body: any, options?: RequestOptions) {
+
+    options = this.defaultOptions.merge(options);
+
     return this.http.put(this.url + '/' + endpoint, body, options);
   }
 
   upload(endpoint: string, body: any, options?: RequestOptions){
-      
+    
+      options = this.defaultOptions.merge(options);
 
       if(!options){
           options = new RequestOptions();

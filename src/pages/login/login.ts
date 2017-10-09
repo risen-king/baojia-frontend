@@ -13,10 +13,13 @@ import { NoticeService }   from '../../providers/notice-service/notice-service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+    defaultHistory: ['ProfilePage']
+})
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
+  
 })
 export class LoginPage {
   pageTitle:string = '登陆';
@@ -32,7 +35,16 @@ export class LoginPage {
       public noticeService: NoticeService
 
   ) {
+       
       this.initForm();
+
+      if(this.userService.hasLogin()){
+
+        this.navCtrl.push('ProfilePage');
+        return ;
+      }
+      
+      
   }
 
   ionViewDidLoad() {
@@ -119,8 +131,6 @@ export class LoginPage {
 
             this.navCtrl.push('ProfilePage');
 
-        }, err => {
-            this.noticeService.showToast('网络忙，请稍后重试！');
         });
 
   

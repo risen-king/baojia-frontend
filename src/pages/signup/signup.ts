@@ -8,7 +8,7 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/take';
 
 import { UserService }     from '../../providers/user-service/user-service';
-
+import { NoticeService }   from '../../providers/notice-service/notice-service';
 
 /**
  * Generated class for the SignupPage page.
@@ -25,7 +25,7 @@ import { UserService }     from '../../providers/user-service/user-service';
 export class SignupPage {
 
   //页面标题
-  public pageTitle: string = '登陆';
+  public pageTitle: string = '注册';
   public signupForm: FormGroup;
 
   //点击获取验证码按钮显示的文字
@@ -42,7 +42,7 @@ export class SignupPage {
       public navParams: NavParams,
       public formBuilder: FormBuilder,
       public userService: UserService,
-      public toastCtrl: ToastController,
+      public noticeService: NoticeService,
   ) {
 
       
@@ -86,27 +86,23 @@ export class SignupPage {
       
   }
 
-  //登陆操作
+  //操作
   doSignup(data) {
 
     this.userService
         .signup(data)
-        .subscribe((resp) => {
-              this.navCtrl.pop();
-          }, (err) => {
-            
-            // TODO: Remove this when you add your signup endpoint
-            //this.navCtrl.push(MainPage); 
+        .map(res => res.json())
+        .subscribe( res => {
+            if(res.status ==='error'){
+                this.noticeService.showToast(res.message,NoticeService.TOAST_POS_MIDDLE);
+            }
+            console.log(res)
 
-            // Unable to sign up
-            let toast = this.toastCtrl.create({
-              message: this.signupErrorString,
-              duration: 3000,
-              position: 'top'
-            });
-            toast.present();
-    });
+            //this.navCtrl.pop();
+        });
   }
+
+ 
 
   //获取验证码
   getCode(event){

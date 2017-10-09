@@ -29,12 +29,17 @@ import { UserModel } from '../../models/user-model';
 @Injectable()
 export class UserService {
 
-  private _user: UserModel;
+
   private _uCacheKey: string = 'user';
 
   private loginUrl:  string = 'users/login';
   private signupUrl: string = 'users/signup';
   private uploadUrl: string = 'users/upload';
+  
+  private updateUrl: string = 'users/'
+
+
+ 
 
 
   constructor(
@@ -42,67 +47,66 @@ export class UserService {
       public cacheService: CacheService
   ) {
 
+        
+
   }
 
-  //获取缓存中的用户信息
-  get user() { 
-
-    let userAccount = <UserModel>this.cacheService.read(this._uCacheKey);
-
-    if( userAccount && !userAccount.avatar ){
-        userAccount.avatar = './assets/img/sarah-avatar.png.jpeg';
-    }
-     
-    return  userAccount;
-  }
-
-
-  //设置用户信息
-  set user(userAccount: UserModel){
  
-      this.cacheService.write(this._uCacheKey, userAccount);
-      
-  }
-  
-  //获取用户令牌
-  get token(): string {
-      return this.user ? this.user.access_token : null;
-  }
 
   update(user: UserModel){
-      
-      let _user = this.user;
-      
-      this.user = Object.assign(_user,user);
+  
+      user = Object.assign(this.getUser(),user);
 
-      return true;
+      let id = user ? user.id : null;
+
+      let updateUrl = this.updateUrl + id;
+ 
+      let seq = this.http
+                  .patch(updateUrl, user)
+                  .share();
+
+                  
+      seq.map(res => res.json())
+        .subscribe(
+            res => {
+                  if (res.status == 'success') {
+                     
+                  } 
+
+                   //保存用户登陆信息
+                    this.loginInner(res);
+              }
+          );
+
+      return seq;
+
+   
 
   }
 
    uploadAvatar(user){
-     
-    return this.http
-              .upload(this.uploadUrl, user);
+       
+        let seq = this.http
+              .upload(this.uploadUrl, user)
+              .share();
+
+        seq.map(res => res.json())
+        .subscribe(
+            res => {
+                  if (res.status == 'success') {
+                      //保存用户登陆信息
+                      this.loginInner(res.data);
+                  } 
+              }
+          );
+
+        return seq;
+      
 
   }
 
-   /**
-   * Log the user out, which forgets the session
-   */
-  logout() {
-      this.user = null;
-  }
 
-
-  hasLogin(){
-      return this.user ? true : false;
-  }
-
-
-  /**
-   * Send a POST request to our login endpoint with the data
-   * the user entered on the form.
-   */
+ 
   login(user: UserModel) {
      
       let seq = this.http
@@ -113,10 +117,9 @@ export class UserService {
       seq.map(res => res.json())
         .subscribe(
             res => {
-
                   if (res.status == 'success') {
                       //保存用户登陆信息
-                      this.user = res.data;  
+                      this.loginInner(res.data);
                   } 
               }
           );
@@ -134,12 +137,13 @@ export class UserService {
       let seq = this.http
                 .post(this.signupUrl, user)
                 .share();
+
       seq.map(res => res.json())
           .subscribe(
               res => {
-                  // If the API returned a successful response, mark the user as logged in
+                  //自动登陆
                   if (res.status == 'success') {
-                      this.user = res.data; 
+                      this.loginInner(res.data);
                   }
               }, 
               err => {
@@ -152,11 +156,52 @@ export class UserService {
  
   }
 
+   
 
 
+  hasLogin(){
+      return this.getUser() ? true : false;
+  }
+
+  loginInner(user: UserModel){
+        this.setUser(user);
+  }
+
+  /**
+   *  退出
+   */
+  logout() {
+      this.setUser(null);
+  }
+
+
+  //获取缓存中的用户信息
+  getUser(){
+      let userAccount = <UserModel>this.cacheService.read(this._uCacheKey);
+
+      // if( userAccount && !userAccount.avatar ){
+    //     userAccount.avatar = './assets/img/sarah-avatar.png.jpeg';
+    // }
  
+      return  userAccount;
+  }
 
+  
+
+
+  //设置用户信息
+  setUser(userAccount: UserModel){
  
+      this.cacheService.write(this._uCacheKey, userAccount);
+      
+  }
+  
+  //获取用户令牌
+  get token(): string {
+      
+      return this.getUser() ? this.getUser().access_token : null;
+  }
+
 
 
 }

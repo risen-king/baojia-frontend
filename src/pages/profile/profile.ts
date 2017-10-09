@@ -43,14 +43,21 @@ export class ProfilePage {
 
   ) {
 
-      this.user = this.userService.user;
-      console.log(this.user)
-
+      if(!this.userService.hasLogin()){
+          this.navCtrl.push('LoginPage');
+      }
+ 
   }
 
-  ngOninit(){
-      
+  ionViewWillEnter() { 
+
+      this.user = this.userService.getUser();
+
+      console.log(this.user);
   }
+
+ 
+   
 
   getPicture() {
 
@@ -119,6 +126,9 @@ export class ProfilePage {
   processWebImage(event) {
     
   }
+
+
+
 
   editEmail(){
 

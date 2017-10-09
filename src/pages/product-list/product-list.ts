@@ -11,7 +11,9 @@ import { ProductService } from '../../providers/providers';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  priority: 'high'
+})
 @Component({
   selector: 'page-product-list',
   templateUrl: 'product-list.html',

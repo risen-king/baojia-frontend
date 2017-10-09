@@ -49,17 +49,13 @@ page-product-list {
         }
     }
      
-    .price-up{
+    .price-up,.price-none{
         color: $red;
         font-weight: 700;
         font-size: 16px;
     }
 
-    .price-none{
-        color: $gray;
-        font-weight: 700;
-        font-size: 16px;
-    }
+   
 
     .price-down{
         color: $green;
