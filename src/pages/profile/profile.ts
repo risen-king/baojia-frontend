@@ -1,5 +1,5 @@
 import { Component, ViewChild  } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController  } from 'ionic-angular';
 
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
@@ -40,6 +40,7 @@ export class ProfilePage {
       public formBuilder: FormBuilder,
       //public camera: Camera,
       public userService: UserService,
+      public modalCtrl: ModalController
 
   ) {
 
@@ -54,6 +55,13 @@ export class ProfilePage {
       this.user = this.userService.getUser();
 
       console.log(this.user);
+  }
+
+  logOut(){
+    this.userService.logout();
+
+    let modal = this.modalCtrl.create('LoginPage');
+    modal.present();
   }
 
  

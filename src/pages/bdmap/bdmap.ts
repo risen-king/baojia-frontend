@@ -10,7 +10,9 @@ import { BdmapService } from '../../providers/bdmap-service/bdmap-service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  priority: 'high'
+})
 @Component({
   selector: 'page-bdmap',
   templateUrl: 'bdmap.html',

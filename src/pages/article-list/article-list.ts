@@ -12,7 +12,9 @@ import { ArticleModel } from '../../models/article-model';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  priority: 'high'
+})
 @Component({
   selector: 'page-article-list',
   templateUrl: 'article-list.html',
