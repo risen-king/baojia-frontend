@@ -1,6 +1,5 @@
+
 <ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="市场"  tabIcon="ios-analytics-outline"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="导航"  tabIcon="ios-compass-outline"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="资讯"  tabIcon="ios-book-outline"></ion-tab>
-   <ion-tab [root]="tab4Root" tabTitle="我的"  tabIcon="ios-person-outline"></ion-tab>
+    <ion-tab *ngFor="let tabRoot of tabRoots" [root]="tabRoot.root" tabTitle="{{tabRoot.tabTitle}}" tabIcon="{{tabRoot.tabIcon}}"></ion-tab>
 </ion-tabs>
+

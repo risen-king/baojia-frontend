@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 
 import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
 
@@ -32,7 +32,8 @@ export class LoginPage {
       public formBuilder: FormBuilder,
       public toastCtrl: ToastController,
       public userService: UserService,
-      public noticeService: NoticeService
+      public noticeService: NoticeService,
+      public modalCtrl: ModalController
 
   ) {
        
@@ -120,8 +121,6 @@ export class LoginPage {
 
     _event.preventDefault();
 
-    
-    
     this.userService.login(user).map(res => res.json())
         .subscribe( resp => {
 
@@ -129,7 +128,11 @@ export class LoginPage {
                 return this.noticeService.showToast( resp.message,'top' );
             }
 
-            this.navCtrl.push('ProfilePage');
+            let modal = this.modalCtrl.create('TabsPage');
+            modal.present();
+
+
+            //this.navCtrl.push('ProfilePage');
 
         });
 

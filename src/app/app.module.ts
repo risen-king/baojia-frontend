@@ -13,7 +13,9 @@ import { IonicStorageModule } from '@ionic/storage';
 //import { AboutPage } from '../pages/about/about';
 //import { ContactPage } from '../pages/contact/contact';
 //import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+//import { TabsPage } from '../pages/tabs/tabs';
+
+//import {TabModule} from "../pages/tabs/tab.module";
 
 //import { ProductListPage } from '../pages/product-list/product-list';
 
@@ -34,7 +36,7 @@ import { NoticeService } from '../providers/notice-service/notice-service';
    // AboutPage,
     //ContactPage,
    // HomePage,
-    TabsPage,
+    //TabsPage,
  
   ],
   imports: [
@@ -60,7 +62,7 @@ import { NoticeService } from '../providers/notice-service/notice-service';
     //AboutPage,
     //ContactPage,
     //HomePage,
-    TabsPage,
+    //TabsPage,
  
   ],
   providers: [
