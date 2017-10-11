@@ -10,21 +10,39 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 
 
+import { Camera } from "@ionic-native/camera";
+import { ImagePicker } from "@ionic-native/image-picker";
+import { File } from "@ionic-native/file";
+import {Network} from "@ionic-native/network";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
+
+
 //import { AboutPage } from '../pages/about/about';
 //import { ContactPage } from '../pages/contact/contact';
 //import { HomePage } from '../pages/home/home';
-//import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPage } from '../pages/tabs/tabs';
 
 //import {TabModule} from "../pages/tabs/tab.module";
 
 //import { ProductListPage } from '../pages/product-list/product-list';
 
 
-import { HttpService,CacheService,ProductService } from '../providers/providers';
+import { 
+  HttpService,
+  CacheService,
+  ProductService,
+  ImgService
+ } from '../providers/providers';
+
+import { NoticeService } from '../providers/providers';
+import { SystemService } from '../providers/system-service';
+
 import { ArticleServiceProvider } from '../providers/article-service/article-service';
 import { BdmapService } from '../providers/bdmap-service/bdmap-service';
 import { UserService } from '../providers/user-service/user-service';
-import { NoticeService } from '../providers/notice-service/notice-service';
+
+
+//import { NoticeService } from '../providers/notice-service/notice-service';
 
 
 
@@ -33,10 +51,8 @@ import { NoticeService } from '../providers/notice-service/notice-service';
 @NgModule({
   declarations: [
     MyApp,
-   // AboutPage,
-    //ContactPage,
-   // HomePage,
-    //TabsPage,
+
+    TabsPage,
  
   ],
   imports: [
@@ -59,24 +75,35 @@ import { NoticeService } from '../providers/notice-service/notice-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    //AboutPage,
-    //ContactPage,
-    //HomePage,
-    //TabsPage,
+     
+    TabsPage,
  
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    
+    Camera,
+    ImagePicker,
+    File,
+    Network,
+    InAppBrowser,
+
+
+    SystemService,
+
  
     CacheService,
     HttpService,
+    NoticeService,
+    ImgService,
+    
     ProductService,
     ArticleServiceProvider,
     BdmapService,
     UserService,
-    NoticeService,
+    
  
     
   ]

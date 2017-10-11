@@ -13,46 +13,46 @@
 </ion-header>
 
 
-<ion-content *ngIf="user">
+<ion-content >
   
   <ion-list>
-      <input type="file" id="file-input" #fileInput   name="files[]" />
+      <!-- <input type="file" id="file-input" #fileInput   name="files[]" /> -->
       <button ion-item>
           头像
-          <ion-thumbnail item-end (click)="getPicture(event)">
+          <ion-thumbnail item-end (click)="getPicture()">
                 <img  class="avatar-image" src="{{user?.avatar}}">
           </ion-thumbnail>
       </button>
 
       <button ion-item (click)="editNickname()">
           昵称
-          <span  item-end>{{user.nickname}}</span>
+          <span  item-end>{{user?.nickname}}</span>
       </button>
 
 
       <button ion-item  (click)="editUsername()">
           姓名
-          <span  item-end>{{user.username}}</span>
+          <span  item-end>{{user?.username}}</span>
       </button>
 
       <button ion-item (click)="editEmail()">
           邮箱
-          <span  item-end>{{user.email}}</span>
+          <span  item-end>{{user?.email}}</span>
       </button>
 
       <button ion-item (click)="editMobile()">
           手机号
-          <span  item-end>{{user.mobile}}</span>
+          <span  item-end>{{user?.mobile}}</span>
       </button>
 
       <button ion-item (click)="goCharge()">
           我的钱包
-          <span  item-end>{{user.balance}}</span>
+          <span  item-end>{{user?.balance}}</span>
       </button>
 
       <button ion-item (click)="goCredit()">
           我的积分
-          <span  item-end>{{user.credit}}</span>
+          <span  item-end>{{user?.credit}}</span>
       </button>
 
 

@@ -6,9 +6,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //import { HomePage } from '../home/home';
 //import { ProductListPage } from '../product-list/product-list';
  
-@IonicPage({
-  priority: 'high'
-})
+// @IonicPage({
+//   priority: 'high'
+// })
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html'
@@ -54,6 +54,6 @@ export class TabsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Tabs2Page');
+    console.log('ionViewDidLoad TabsPage');
   }
 }
