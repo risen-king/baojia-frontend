@@ -1,7 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,Slides } from 'ionic-angular';
 
-import { ArticleServiceProvider as ArticleService } from '../../providers/article-service/article-service';
+import { ArticleService } from '../../providers/article-service';
 import { AdService } from '../../providers/ad-service';
 
 import { ArticleModel } from '../../models/article-model';

@@ -8,7 +8,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 
-import { ArticleServiceProvider as ArticleService } from '../../providers/article-service/article-service';
+import { ArticleService } from '../../providers/article-service';
 import { ArticleModel } from '../../models/article-model';
 
 /**

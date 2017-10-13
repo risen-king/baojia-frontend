@@ -28,11 +28,13 @@ import {
 import { NoticeService } from '../providers/providers';
 import { SystemService } from '../providers/system-service';
 
-import { ArticleServiceProvider } from '../providers/article-service/article-service';
+ 
 import { BdmapService } from '../providers/bdmap-service/bdmap-service';
 import { UserService } from '../providers/user-service/user-service';
 import { CreditService } from '../providers/credit-service';
 import { AdService } from '../providers/ad-service';
+
+import { ArticleService } from '../providers/providers';
 
  
 @NgModule({
@@ -87,7 +89,7 @@ import { AdService } from '../providers/ad-service';
     ImgService,
     
     ProductService,
-    ArticleServiceProvider,
+    ArticleService,
     BdmapService,
     UserService,
     CreditService,

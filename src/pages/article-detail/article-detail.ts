@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ArticleServiceProvider as ArticleService } from '../../providers/article-service/article-service';
+import { ArticleService } from '../../providers/article-service';
 import { ArticleModel } from '../../models/article-model';
 
 /**

@@ -7,6 +7,9 @@ import { NoticeService } from './notice-service/notice-service';
 import { ImgService } from './img-service';
 import { UserService } from './user-service/user-service';
 
+
+import { ArticleService } from './article-service';
+
  
 export {
      HttpService,
@@ -16,7 +19,9 @@ export {
      
      ImgService,
      ProductService,
-     UserService
+     UserService,
+
+     ArticleService
    
      
 };
