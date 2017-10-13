@@ -1,0 +1,46 @@
+<!--
+  Generated template for the MineMobileEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+     <ion-title>{{pageTitle}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+
+  <!-- 修改手机号码  -->
+  <form [formGroup]="profileForm" novalidate *ngIf="profileForm.controls">
+      <ion-list   *ngIf="profileForm.controls['mobile']">
+        
+          <ion-item>
+                <ion-input type="text"  formControlName="mobile" placeholder="手机号码"></ion-input>
+          </ion-item>
+
+    
+          <ion-item>
+              <ion-input type="text"   formControlName="code" placeholder="验证码"></ion-input>
+              
+              <button    type="button" ion-button outline item-end icon-left  class="code-button" [disabled]="!codeButtonActive" 
+                         (click)="getCode(event)">
+                  {{codeButtonTitle}}
+              </button>
+          </ion-item> 
+
+          <div padding>
+              <button   type="submit" ion-button block color="danger" 
+                        [disabled]="!profileForm.valid" (click)="submitForm(profileForm.value, $event)" >
+                    修改
+              </button>  
+          </div>
+
+      </ion-list>
+  </form>
+
+</ion-content>
