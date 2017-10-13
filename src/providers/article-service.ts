@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { HttpServiceProvider as HttpService} from './http-service/http-service';
-import { CacheServiceProvider as CacheService} from './cache-service/cache-service';
+//import { CacheServiceProvider as CacheService} from './cache-service/cache-service';
 import { ArticleModel } from './../models/article-model';
 
 /*
@@ -27,10 +27,11 @@ export class ArticleService {
 
   constructor(
     public http: HttpService,
-    public cache: CacheService,
-    public jsonp: Jsonp) {
+    //public cache: CacheService,
+    //public jsonp: Jsonp
+    ) {
         console.log('Hello ArticleServiceProvider Provider');
-  }
+    }
 
 
 
@@ -56,7 +57,7 @@ export class ArticleService {
                   
                   let _res = resp.json();
 
-                  this.cache.write(url, _res);
+                  //this.cache.write(url, _res);
                   
                   return _res;
 
@@ -90,29 +91,29 @@ export class ArticleService {
       return this.http.get(url).map(resp => <any[]>resp.json().items);
   }
 
-  search0 (term: string) {
-      let wikiUrl = 'http://en.wikipedia.org/w/api.php';
+//   search0 (term: string) {
+//       let wikiUrl = 'http://en.wikipedia.org/w/api.php';
       
-      let queryString =`?search=${term}&action=opensearch&format=json&callback=JSONP_CALLBACK`;
+//       let queryString =`?search=${term}&action=opensearch&format=json&callback=JSONP_CALLBACK`;
 
-      return this.jsonp
-              .get(wikiUrl + queryString)
-              .map(response => {
-                    let _data = response.json()[1];
+//       return this.jsonp
+//               .get(wikiUrl + queryString)
+//               .map(response => {
+//                     let _data = response.json()[1];
                     
-                    let newsItems: Array<ArticleModel>;
-                    newsItems = _data.map(item => {   
-                                    let newsItem = new ArticleModel();
-                                    newsItem.title = item;
-                                    newsItem.thumb = '';
-                                    return newsItem;
+//                     let newsItems: Array<ArticleModel>;
+//                     newsItems = _data.map(item => {   
+//                                     let newsItem = new ArticleModel();
+//                                     newsItem.title = item;
+//                                     newsItem.thumb = '';
+//                                     return newsItem;
  
-                                });
+//                                 });
 
-                    return newsItems;
+//                     return newsItems;
 
-              });
-  }
+//               });
+//   }
 
 
 

@@ -13,15 +13,14 @@ import { ArticleService } from './article-service';
  
 export {
      HttpService,
-     
-     NoticeService,
      CacheService,
-     
+     NoticeService,
      ImgService,
      ProductService,
+     ArticleService,
      UserService,
 
-     ArticleService
+     
    
      
 };
