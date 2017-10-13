@@ -16,25 +16,22 @@ import {Network} from "@ionic-native/network";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 
  
-import { TabsPage } from '../pages/tabs/tabs';
- 
-import { 
-  HttpService,
-  CacheService,
-  ProductService,
-  ImgService
- } from '../providers/providers';
+import { TabsPage }     from '../pages/tabs/tabs';
 
-import { NoticeService } from '../providers/providers';
 import { SystemService } from '../providers/system-service';
+import { NoticeService } from '../providers/providers';
+import { HttpService }   from '../providers/providers';
+import { CacheService }  from '../providers/providers';
 
- 
-import { BdmapService } from '../providers/bdmap-service/bdmap-service';
-import { UserService } from '../providers/user-service/user-service';
-import { CreditService } from '../providers/credit-service';
-import { AdService } from '../providers/ad-service';
-
+import { ProductService } from '../providers/providers';
 import { ArticleService } from '../providers/providers';
+import { ImgService }     from '../providers/providers';
+import { BdmapService }   from '../providers/bdmap-service/bdmap-service';
+import { UserService }    from '../providers/user-service/user-service';
+import { CreditService }  from '../providers/credit-service';
+import { AdService }      from '../providers/ad-service';
+
+
 
  
 @NgModule({
@@ -78,8 +75,6 @@ import { ArticleService } from '../providers/providers';
     File,
     Network,
     InAppBrowser,
-
-
     SystemService,
 
  
