@@ -46,10 +46,10 @@ export class ArticleServiceProvider {
     }
 
     
-    let _data = this.cache.read( url ) as any[];
-    if( _data = null ){
-        return   Observable.of(_data ).toPromise();
-    }
+    // let _data = this.cache.read( url ) as any[];
+    // if( _data = null ){
+    //     return   Observable.of(_data ).toPromise();
+    // }
   
 
     return this.http.get(url)

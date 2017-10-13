@@ -71,11 +71,33 @@ export class ProfilePage {
 
   getPicture() {
 
-        this.imgService.showPicActionSheet();
+    this.imgService.getPictureHtml5()
+        .subscribe(data=>{
+
+          console.log(data);
+
+          console.log('---------------------------------');
+         
+          //let file = this.imgService.dataURItoBlob(data);
+           
+         // let formData = this.imgService.buildFormData({'avatar':file});
+           this.userService
+                .uploadAvatar({"avatar":data})
+                .map(res => res.json())
+                .subscribe();
+
+        } );
+
+
   }
 
   goCharge(){
     this.navCtrl.push('ChargePage');
+  }
+
+
+  goCredit(){
+    this.navCtrl.push('MimeCreditPage');
   }
 
 

@@ -19,7 +19,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
        <ion-refresher-content
@@ -32,8 +32,9 @@
 
   <div id="first-slider">
       <!-- start 轮播图-->  
-        <ion-slides autoplay=3000 pager=true effect="coverflow" loop=true>  
-          <ion-slide>  
+        <ion-slides *ngIf="ads" autoplay=3000 pager=true effect="coverflow" loop=true>  
+
+          <!-- <ion-slide>  
             <div class="box banner"><img src="http://www.shstone.org/file/upload/201704/19/10-02-32-52-1.jpg" /> </div>  
           </ion-slide>  
           <ion-slide>  
@@ -41,7 +42,12 @@
           </ion-slide>  
           <ion-slide on-slide-changed="slideHasChanged(index)">  
             <div class="box banner"><img src="http://www.shstone.org/file/upload/201704/19/10-02-32-52-1.jpg" /></div>  
-          </ion-slide>  
+          </ion-slide>  -->
+
+          <ion-slide *ngFor="let ad of ads" >  
+              <div class="box banner"><img [src]="ad.thumb" /></div>  
+          </ion-slide>
+
         </ion-slides>  
         <!-- end 轮播图-->  
     </div>
@@ -53,8 +59,8 @@
             <h2>{{item.title}}</h2>
             
             <div class="item-tag">
-                <span class="item-time">08:19</span>
-                <span class="item-hit">&nbsp;&nbsp; | &nbsp;&nbsp;29967阅读</span>
+                <span class="item-time">{{item.updated_at|date:"MM-dd"}}</span>
+                <span class="item-hit">&nbsp;&nbsp; | &nbsp;&nbsp;{{item.hit||29967}}阅读</span>
             </div>
 
         </ion-item>

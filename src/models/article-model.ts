@@ -4,6 +4,6 @@ export class ArticleModel{
     thumb: string;
     digest: string;
     content: string;
-    created_at:number;
-    updated_at:number;
+    created_at:string;
+    updated_at:string;
 }

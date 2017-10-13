@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,Slides } from 'ionic-angular';
 
 import { ArticleServiceProvider as ArticleService } from '../../providers/article-service/article-service';
+import { AdService } from '../../providers/ad-service';
 
 import { ArticleModel } from '../../models/article-model';
 
@@ -23,7 +24,8 @@ export class ArticleListPage {
 
   public pageTitle: string = '最新资讯';
   public nextPage : string = '';
-  public items: ArticleModel[];
+  public items: any[];
+  public ads: any[];
 
   @ViewChild('mySlider') slider:Slides;
 
@@ -40,6 +42,7 @@ export class ArticleListPage {
       public navCtrl: NavController, 
       public navParams: NavParams,
       public articleService: ArticleService,
+      public adService: AdService,
     ) {
       
         
@@ -50,6 +53,8 @@ export class ArticleListPage {
     console.log('ionViewDidLoad ArticleListPage');
 
     this.getArticles();
+
+    this.getAds();
   }
 
   getArticles(pageUrl:string|null = '') {
@@ -64,6 +69,15 @@ export class ArticleListPage {
             );
          
           
+  }
+
+  getAds(){
+    this.adService.getList().subscribe(
+      (data)=>{
+        this.ads = data.items;
+        console.log(this.ads);
+      }
+    );
   }
 
   doInfinite(infiniteScroll) {
@@ -98,7 +112,7 @@ export class ArticleListPage {
   /**
    * Navigate to the detail page for this item.
    */
-  openItem(item: ArticleModel) {
+  openItem(item: any) {
     this.navCtrl.push('ArticleDetailPage', {
       item: item
     });

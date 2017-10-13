@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, URLSearchParams,Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
- 
+
+import { REQUEST_URI } from '../Constant';
 
 import { UserService } from '../user-service/user-service';
 import { CacheServiceProvider as CacheService} from '../cache-service/cache-service';
 import { UserModel } from '../../models/user-model';
+
+
 
 /*
   Generated class for the HttpServiceProvider provider.
@@ -19,7 +22,7 @@ export class HttpServiceProvider {
 
   headers: Headers;
   defaultOptions: RequestOptions;
-  url: string = 'http://api.maybe88.com/v1';
+  url: string = REQUEST_URI;
   
 
 

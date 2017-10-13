@@ -5,7 +5,6 @@ import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { HttpModule, JsonpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -16,17 +15,9 @@ import { File } from "@ionic-native/file";
 import {Network} from "@ionic-native/network";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 
-
-//import { AboutPage } from '../pages/about/about';
-//import { ContactPage } from '../pages/contact/contact';
-//import { HomePage } from '../pages/home/home';
+ 
 import { TabsPage } from '../pages/tabs/tabs';
-
-//import {TabModule} from "../pages/tabs/tab.module";
-
-//import { ProductListPage } from '../pages/product-list/product-list';
-
-
+ 
 import { 
   HttpService,
   CacheService,
@@ -40,14 +31,10 @@ import { SystemService } from '../providers/system-service';
 import { ArticleServiceProvider } from '../providers/article-service/article-service';
 import { BdmapService } from '../providers/bdmap-service/bdmap-service';
 import { UserService } from '../providers/user-service/user-service';
+import { CreditService } from '../providers/credit-service';
+import { AdService } from '../providers/ad-service';
 
-
-//import { NoticeService } from '../providers/notice-service/notice-service';
-
-
-
-
-
+ 
 @NgModule({
   declarations: [
     MyApp,
@@ -103,9 +90,9 @@ import { UserService } from '../providers/user-service/user-service';
     ArticleServiceProvider,
     BdmapService,
     UserService,
-    
- 
-    
+    CreditService,
+    AdService,
+        
   ]
 })
 export class AppModule {}

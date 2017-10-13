@@ -4,7 +4,14 @@ import { Http } from '@angular/http';
 import { Observer } from 'rxjs'
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
+import 'rxjs/add/observable/never';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMapTo';
+import 'rxjs/add/operator/switchMap';
+ 
+
+
+
 
 import { ActionSheetController } from "ionic-angular";
 
@@ -47,42 +54,58 @@ export class ImgService {
 
   showPicActionSheet() {
 
-    if( this.systemService.isMobile () ){
-        this.useASComponent();
-    }else{
-        this.getPictureHtml5();
-    }
+        // if( !this.systemService.isMobile () ){
+
+        //   return this.getPictureHtml5();
+        // }
+
+      return Observable.create((observer)=>{
+
+          this.actionSheetCtrl.create({
+              title: '选择',
+              buttons: [
+                {
+                  text: '拍照',
+                  handler: () => {
+                    
+                    this.getPictureByCamera()
+                        .subscribe( (data)=>observer.next(data) );
+                  }
+                },
+                {
+                  text: '从手机相册选择',
+                  handler: () => {
+                    this.getPictureByPhotoLibrary()
+                        .subscribe( (data)=>observer.next(data) );
+                    
+                    
+                  }
+                },
+                {
+                  text: 'H5',
+                  handler: () => {
+                        this.getPictureHtml5()
+                            .subscribe( (data)=>observer.next(data) );
+                       
+                    
+                  }
+                },
+                {
+                  text: '取消',
+                  role: 'cancel',
+                  handler: () => {
+
+                  }
+                }
+              ]
+          }).present();
+
+      });
+ 
     
   }
 
-  // 使用ionic中的ActionSheet组件
-  private useASComponent() {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: '选择',
-      buttons: [
-        {
-          text: '拍照',
-          handler: () => {
-            this.getPictureByCamera();
-          }
-        },
-        {
-          text: '从手机相册选择',
-          handler: () => {
-            this.getPictureByPhotoLibrary();
-          }
-        },
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: () => {
-
-          }
-        }
-      ]
-    });
-    actionSheet.present();
-  }
+ 
 
    
 
@@ -186,7 +209,7 @@ export class ImgService {
     });
   };
 
-  getPictureHtml5(){
+  getPictureHtml5(): Observable<string>{
       //http://www.cnblogs.com/yuanlong1012/p/5127497.html
 
       let fileInput:any;
@@ -207,24 +230,17 @@ export class ImgService {
           
       }
 
-      Observable
+      let dataUrl = Observable
         .fromEvent(fileInput,'change')
         .map((e: Event)=>{
             return (e.target as HTMLInputElement).files[0];
         })
         .filter(file => !!file)
-        .switchMap(this.readFileInfo)
-        .subscribe((data)=>{
-
-             console.log(data);
-
-             this.userService.uploadAvatar({"avatar":data});
-              
-        });
-
-      
+        .switchMap(this.readFileInfo);
 
       fileInput.click();
+
+      return dataUrl;
 
   }
 
@@ -270,28 +286,29 @@ export class ImgService {
     });
   }
 
-
-  
-  
-  upload(file:string){
-
-    this.userService
-        .uploadAvatar(file)
-        .map(res => res.json())
-        .subscribe();
-
+  dataURItoBlob(dataURI) {
+        var byteString = atob(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], {type: mimeString});
+  }
     
-    
-    
+  buildFormData(args:Object){
+    let formData = new FormData();
+
+    for(let key in args){
+       formData.append(key,args[key]);
+    }
+
+    return formData;
 
   }
 
-  
 
-  
-
-    
-   
-
+ 
 
 }
