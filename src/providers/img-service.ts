@@ -210,38 +210,45 @@ export class ImgService {
   };
 
   getPictureHtml5(): Observable<string>{
+      
       //http://www.cnblogs.com/yuanlong1012/p/5127497.html
 
       let fileInput:any;
  
       if(document.getElementById('myUploadInput')){
 
-        fileInput = document.getElementById('myUploadInput');
+          fileInput = document.getElementById('myUploadInput');
 
       }else{
 
-        fileInput = document.createElement('input');
-        fileInput.setAttribute('id', 'myUploadInput');
-        fileInput.setAttribute('type', 'file');
-        fileInput.setAttribute('name', 'file');
-        document.body.appendChild(fileInput);
-        fileInput.style.display = 'none';
-        
+          fileInput = document.createElement('input');
+          fileInput.setAttribute('id', 'myUploadInput');
+          fileInput.setAttribute('type', 'file');
+          fileInput.setAttribute('name', 'file');
+          document.body.appendChild(fileInput);
+          fileInput.style.display = 'none';
           
       }
 
-      let dataUrl = Observable
-        .fromEvent(fileInput,'change')
-        .map((e: Event)=>{
-            return (e.target as HTMLInputElement).files[0];
-        })
-        .filter(file => !!file)
-        .switchMap(this.readFileInfo);
-
       fileInput.click();
 
-      return dataUrl;
+      return Observable.create(observer => {
 
+          fileInput.onchange = (e: Event) => {
+
+              let file = (e.target as HTMLInputElement).files[0];
+
+              const reader = new FileReader();
+              reader.onload = (e: Event) => {
+                    let dataUri = (e.target as FileReader).result;
+                    observer.next(dataUri);
+                    observer.complete()
+                        
+              }
+              reader.readAsDataURL(file);
+        } 
+      });
+ 
   }
 
   private readFileInfo(file): Observable<string> {

@@ -92,12 +92,14 @@ export class UserService {
 
         seq.map(res => res.json())
         .subscribe(
+           
             res => {
                   if (res.status == 'success') {
                       //保存用户登陆信息
                       this.loginInner(res.data);
                   } 
-              }
+                  
+            }
           );
 
         return seq;

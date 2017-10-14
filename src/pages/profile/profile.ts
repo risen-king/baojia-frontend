@@ -8,10 +8,8 @@ import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 
-
-import { UserService,ImgService }     from '../../providers/providers';
-
-
+import { ImgService }     from '../../providers/providers';
+import { UserService }     from '../../providers/providers';
 import { UserModel }     from '../../models/user-model';
 
 /**
@@ -29,13 +27,10 @@ import { UserModel }     from '../../models/user-model';
 export class ProfilePage {
 
   pageTitle: string = '个人信息';
-  user: UserModel;
+  user: any;
   form: FormGroup;
 
-  cameraEnable: boolean = false;
-
-  @ViewChild('fileInput') fileInput;
-
+ 
   constructor(
       public navCtrl: NavController, 
       public navParams: NavParams,
@@ -53,10 +48,7 @@ export class ProfilePage {
   }
 
   ionViewWillEnter() { 
-
-      this.user = this.userService.getUser();
-
-      console.log(this.user);
+      this.user = this.userService.getUser();  
   }
 
   logOut(){
@@ -73,18 +65,14 @@ export class ProfilePage {
 
     this.imgService.getPictureHtml5()
         .subscribe(data=>{
-
-          console.log(data);
-
-          console.log('---------------------------------');
-         
-          //let file = this.imgService.dataURItoBlob(data);
-           
-         // let formData = this.imgService.buildFormData({'avatar':file});
+  
            this.userService
                 .uploadAvatar({"avatar":data})
                 .map(res => res.json())
-                .subscribe();
+                .subscribe((data)=>{
+                    console.log(data)
+                    
+                });
 
         } );
 
@@ -102,26 +90,26 @@ export class ProfilePage {
 
 
 
-  editEmail(){
+  goEmailEdit(){
 
-    this.navCtrl.push('ProfileEditPage',{type:'email'});
+    this.navCtrl.push('MineEmailEditPage');
   
   }
 
-  editMobile(){
+  goMobileEdit(){
     
-    this.navCtrl.push('ProfileEditPage',{type:'mobile'});
+    this.navCtrl.push('MineMobileEditPage');
    
   }
 
-  editNickname(){
-    this.navCtrl.push('ProfileEditPage',{type:'nickname'});
+  goNicknameEdit(){
+    this.navCtrl.push('MineNicknameEditPage');
 
   }
 
-  editUsername(){
+  goNameEdit(){
 
-    this.navCtrl.push('ProfileEditPage',{type:'username'});
+    this.navCtrl.push('MineNameEditPage');
 
   }
 

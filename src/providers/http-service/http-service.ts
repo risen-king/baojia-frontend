@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { REQUEST_URI } from '../Constant';
 
-import { UserService } from '../user-service/user-service';
+//import { UserService } from '../user-service/user-service';
 import { CacheServiceProvider as CacheService} from '../cache-service/cache-service';
 import { UserModel } from '../../models/user-model';
 
@@ -32,7 +32,7 @@ export class HttpServiceProvider {
   ) {
  
 
-      let user = <UserModel>this.cacheService.read('user');
+      let user:any = this.cacheService.read('user');
       let token = user ? user.access_token  : '';
       
       this.headers = new Headers({

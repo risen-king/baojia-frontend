@@ -26,23 +26,23 @@
           </ion-thumbnail>
       </button>
 
-      <button ion-item (click)="editNickname()">
+      <button ion-item (click)="goNicknameEdit()">
           昵称
           <span  item-end>{{user?.nickname}}</span>
       </button>
 
 
-      <button ion-item  (click)="editUsername()">
+      <button ion-item  (click)="goNameEdit()">
           姓名
           <span  item-end>{{user?.username}}</span>
       </button>
 
-      <button ion-item (click)="editEmail()">
+      <button ion-item (click)="goEmailEdit()">
           邮箱
           <span  item-end>{{user?.email}}</span>
       </button>
 
-      <button ion-item (click)="editMobile()">
+      <button ion-item (click)="goMobileEdit()">
           手机号
           <span  item-end>{{user?.mobile}}</span>
       </button>
