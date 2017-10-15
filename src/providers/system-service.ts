@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Platform } from "ionic-angular";
+import {ToastController, LoadingController, Platform, Loading, AlertController} from "ionic-angular";
 
 import {Network} from "@ionic-native/network";
 import {StatusBar} from "@ionic-native/status-bar";
@@ -18,14 +18,20 @@ import { REQUEST_TIMEOUT } from "./Constant"
 @Injectable()
 export class SystemService {
 
+  private loading: Loading;
+  private loadingIsOpen: boolean = false;
+
   constructor(
     private platform: Platform,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
+     private loadingCtrl: LoadingController,
     private network: Network,
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
     private inAppBrowser: InAppBrowser,
   ) {
-    console.log('Hello SystemServiceProvider Provider');
+    //console.log('Hello SystemServiceProvider Provider');
   }
 
    /**
@@ -87,6 +93,48 @@ export class SystemService {
   isConnecting(): boolean {
     return this.getNetworkType() != 'none';
   }
+
+  alert(title: string, subTitle: string = "",): void {
+    this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: [{text: '确定'}]
+    }).present();
+  }
+
+
+  /**
+   * 统一调用此方法显示loading
+   * @param content 显示的内容
+   */
+  showLoading(content: string = ''): void {
+    // if (!this.globalData.showLoading) {
+    //   return;
+    // }
+    if (!this.loadingIsOpen) {
+      this.loadingIsOpen = true;
+      this.loading = this.loadingCtrl.create({
+        content: content
+      });
+      this.loading.present();
+      setTimeout(() => {
+        this.loadingIsOpen && this.loading.dismiss();
+        this.loadingIsOpen = false;
+      }, REQUEST_TIMEOUT);
+    }
+  };
+
+  /**
+   * 关闭loading
+   */
+  hideLoading(): void {
+    // if (!this.globalData.showLoading) {
+    //   this.globalData.showLoading = true;
+    // }
+    this.loadingIsOpen && this.loading.dismiss();
+    this.loadingIsOpen = false;
+  };
+
 
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
- 
+//import { Observable }  from 'rxjs/Observable';
 
 import { ProductService } from '../../providers/providers';
 
@@ -32,42 +32,68 @@ export class ProductListPage {
       public productService:ProductService
     ) {
        
-      this.getProducts(); 
+      this.initProducts(); 
   }
 
-  getProducts(page:string=''):Promise<any>{
-    return this.productService
-            .getList(page)
-            .then( data =>  {
-                    
-                    this.nextPage = data._links && data._links.next ? data._links.next.href : '';
+  initProducts(page:string=''):void{
+       
+      this.productService
+          .getList(page)
+          .subscribe( data =>  {
 
-                    this.items = data.items ? data.items : [] ;
+              let result = this._handleData(data);
+                   
+              this.nextPage = result.nextPage;
+              this.items    = result.items;
 
-                    return this.items;
+               
                     
-                  } 
-            );
-          
+              } 
+          );
+
   }
+
+ 
 
    doInfinite() {
-      console.log('Begin async operation');
 
-      return this.getProducts(this.nextPage)
-            .then(data => this.items = this.items.concat(data) );
+       this.productService
+          .getList(this.nextPage)
+          .subscribe(data => {
+
+              let result = this._handleData(data); 
+
+              this.nextPage = result.nextPage;
+              this.items = this.items.concat(result.items);
+          });
+
+     
   }
 
   doRefresh(refresher) {
-    //console.log('Begin async operation', refresher);
+ 
+      this.productService
+          .getList()
+          .subscribe( data =>  {    
+                
+              let result = this._handleData(data);
+                   
+              this.nextPage = result.nextPage;
+              this.items    = result.items;
 
-    setTimeout(() => {
-      //console.log('Async operation has ended');
+              refresher.complete();
+                    
+          });
+  }
 
-      this.getProducts(); 
+  private _handleData(data):any{
+      let _nextPage = data._links && data._links.next ? data._links.next.href : '';
+      let _items    =  data.items ? data.items : [] ;
 
-      refresher.complete();
-    }, 2000);
+      return {
+        nextPage : _nextPage,
+        items : _items
+      };
   }
 
  

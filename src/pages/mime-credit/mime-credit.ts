@@ -32,18 +32,17 @@ export class MimeCreditPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MimeCreditPage');
 
-    this.getList();
+    this.initCredits();
   }
 
-  getList(pageUrl:string|null = '') {
+  initCredits(pageUrl:string|null = '') {
    
     return this.creditService
-            .getList(pageUrl)
-            .then( data =>  {
-                    console.log(data);
-                    this.nextPage = data._links && data._links.next ? data._links.next.href : null;
-                    this.items = data.items ? data.items : [] ;  
-                    return this.items;
+            .getList()
+            .subscribe( data =>  {
+                    let result = this._handleData(data);
+                    this.nextPage = result.nextPage;
+                    this.items    = result.items;
                   } 
             );
          
@@ -55,26 +54,47 @@ export class MimeCreditPage {
 
       if(this.nextPage === null ){
          infiniteScroll.enable(false);
+      }else{
+          this.creditService
+          .getList(this.nextPage)
+          .subscribe(data => {
 
+              let result = this._handleData(data); 
+
+              this.nextPage = result.nextPage;
+              this.items = this.items.concat(result.items);
+          });
       }
   
-
-      return this.getList(this.nextPage)
-            .then(data => this.items = this.items.concat(data) );
+ 
  
       
   }
 
   doRefresh(refresher) {
-    //console.log('Begin async operation', refresher);
+ 
+      this.creditService
+          .getList()
+          .subscribe( data =>  {    
+                
+              let result = this._handleData(data);
+                   
+              this.nextPage = result.nextPage;
+              this.items    = result.items;
 
-    setTimeout(() => {
-      //console.log('Async operation has ended');
+              refresher.complete();
+                    
+          });
+  }
 
-      this.getList(); 
+   private _handleData(data):any{
+      let _nextPage = data._links && data._links.next ? data._links.next.href : '';
+      let _items    =  data.items ? data.items : [] ;
 
-      refresher.complete();
-    }, 2000);
+      return {
+        nextPage : _nextPage,
+        items : _items
+      };
   }
 
   

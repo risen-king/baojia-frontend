@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
+
+import { UserService }     from '../../providers/providers';
 
 //import { AboutPage } from '../about/about';
 //import { ContactPage } from '../contact/contact';
@@ -23,7 +25,11 @@ export class TabsPage {
   tab4Root = 'LoginPage';
 
 
-  constructor() {
+  constructor(
+      public navCtrl: NavController,
+      public userService: UserService
+
+  ) {
 
     this.tabRoots = [
       {
@@ -42,9 +48,17 @@ export class TabsPage {
         tabIcon: 'ios-book-outline'
       },
       {
-        root: 'LoginPage',
+        //root: 'LoginPage',
         tabTitle: '我的',
-        tabIcon: 'ios-person-outline'
+        tabIcon: 'ios-person-outline',
+        ionSelect: ()=>{
+            if( !this.userService.hasLogin() ){
+                this.navCtrl.push('LoginPage');
+            }else{
+                this.navCtrl.push('ProfilePage');
+            }
+           
+        }
       }
 
     ];
@@ -54,6 +68,8 @@ export class TabsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TabsPage');
+    //console.log('ionViewDidLoad TabsPage');
   }
+
+  
 }

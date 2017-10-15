@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-
-import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 
-import { UserService }     from '../../providers/user-service/user-service';
+import { UserService }     from '../../providers/providers';
 import { NoticeService }   from '../../providers/notice-service/notice-service';
 
-import { UserModel }     from '../../models/user-model';
 
 /**
  * Generated class for the MineMobileEditPage page.

@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams,Slides } from 'ionic-angular';
 import { ArticleService } from '../../providers/article-service';
 import { AdService } from '../../providers/ad-service';
 
-import { ArticleModel } from '../../models/article-model';
+ 
 
 /**
  * Generated class for the ArticleListPage page.
@@ -50,61 +50,84 @@ export class ArticleListPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ArticleListPage');
 
-    this.getArticles();
+    this.initArticles();
 
     this.getAds();
   }
 
-  getArticles(pageUrl:string|null = '') {
+  initArticles() {
    
     return this.articleService
-            .getList(pageUrl)
-            .then( data =>  {
-                    this.nextPage = data._links && data._links.next ? data._links.next.href : null;
-                    this.items = data.items ? data.items : [] ;  
-                    return this.items;
-                  } 
-            );
+            .getList()
+            .subscribe( data =>  {
+
+                let result = this._handleData(data);
+                    
+                this.nextPage = result.nextPage;
+                this.items    = result.items;
+                    
+              } 
+          );
          
           
   }
+
+  
+
+  doInfinite(infiniteScroll) {
+     
+      this.articleService
+        .getList(this.nextPage)
+        .subscribe(data => {
+
+              let result = this._handleData(data); 
+
+              this.nextPage = result.nextPage;
+              this.items = this.items.concat(result.items);
+          });
+
+       
+      
+  }
+ 
+
+
+   doRefresh(refresher) {
+ 
+      this.articleService
+          .getList()
+          .subscribe( data =>  {    
+                
+              let result = this._handleData(data);
+                   
+              this.nextPage = result.nextPage;
+              this.items    = result.items;
+
+              refresher.complete();
+                    
+          });
+  }
+
+   private _handleData(data):any{
+      let _nextPage = data._links && data._links.next ? data._links.next.href : '';
+      let _items    =  data.items ? data.items : [] ;
+
+      return {
+        nextPage : _nextPage,
+        items : _items
+      };
+  }
+
+
 
   getAds(){
     this.adService.getList().subscribe(
       (data)=>{
         this.ads = data.items;
-        console.log(this.ads);
+        
       }
     );
-  }
-
-  doInfinite(infiniteScroll) {
-      console.log('Begin async operation');
-
-      if(this.nextPage === null ){
-         infiniteScroll.enable(false);
-
-      }
-  
-
-      return this.getArticles(this.nextPage)
-            .then(data => this.items = this.items.concat(data) );
- 
-      
-  }
-
-  doRefresh(refresher) {
-    //console.log('Begin async operation', refresher);
-
-    setTimeout(() => {
-      //console.log('Async operation has ended');
-
-      this.getArticles(); 
-
-      refresher.complete();
-    }, 2000);
   }
 
   

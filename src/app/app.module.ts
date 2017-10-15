@@ -18,16 +18,17 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
  
 import { TabsPage }     from '../pages/tabs/tabs';
 
-import { SystemService } from '../providers/system-service';
-import { NoticeService } from '../providers/providers';
+import { GlobalData }      from '../providers/GlobalData';
 import { HttpService }   from '../providers/providers';
+import { SystemService } from '../providers/system-service';
+import { NoticeService } from '../providers/providers'
 import { CacheService }  from '../providers/providers';
 
 import { ProductService } from '../providers/providers';
 import { ArticleService } from '../providers/providers';
 import { ImgService }     from '../providers/providers';
 import { BdmapService }   from '../providers/bdmap-service/bdmap-service';
-import { UserService }    from '../providers/user-service/user-service';
+import { UserService }    from '../providers/providers';
 import { CreditService }  from '../providers/credit-service';
 import { AdService }      from '../providers/ad-service';
 
@@ -77,7 +78,7 @@ import { AdService }      from '../providers/ad-service';
     InAppBrowser,
     SystemService,
 
- 
+    GlobalData,
     CacheService,
     HttpService,
     NoticeService,

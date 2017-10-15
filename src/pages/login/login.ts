@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 
-import { FormBuilder, FormGroup,FormControl,Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 
-import { UserService }     from '../../providers/user-service/user-service';
+import { UserService }     from '../../providers/providers';
 import { NoticeService }   from '../../providers/notice-service/notice-service';
 
 /**
@@ -36,21 +36,18 @@ export class LoginPage {
       public modalCtrl: ModalController
 
   ) {
-       
-      this.initForm();
+        this.initForm();
 
-      if(this.userService.hasLogin()){
+        if( this.userService.hasLogin() ){
 
-        this.navCtrl.push('ProfilePage');
-        return ;
-      }
-      
+            this.navCtrl.push('ProfilePage');
+            return ;
+        }
+  
       
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+ 
 
   initForm(){
       this.loginForm = this.formBuilder.group({
@@ -113,30 +110,22 @@ export class LoginPage {
  
   }
 
-  
-
-  // Attempt to login in through our User service
+   
   doLogin(user, _event) {
-    console.log(user);
 
     _event.preventDefault();
 
     this.userService.login(user).map(res => res.json())
-        .subscribe( resp => {
-
-            if(resp.status === 'error'){
-                return this.noticeService.showToast( resp.message,'top' );
+        .subscribe( 
+            res => {
+                //let modal = this.modalCtrl.create('TabsPage');
+                //modal.present();
+                this.navCtrl.push('ProfilePage');
+            },
+            err => {
+                this.noticeService.showToast( err,'top' );
             }
-
-            let modal = this.modalCtrl.create('TabsPage');
-            modal.present();
-
-
-            //this.navCtrl.push('ProfilePage');
-
-        });
-
-  
+        );
   }
 
   signup() {

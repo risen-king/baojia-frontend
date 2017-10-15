@@ -1,16 +1,11 @@
-import { Component, ViewChild  } from '@angular/core';
+import { Component  } from '@angular/core';
 import { IonicPage, NavController, NavParams,ModalController  } from 'ionic-angular';
-
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-
-
-import { Observable }        from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
+import {  FormBuilder, FormGroup } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
 import { ImgService }     from '../../providers/providers';
 import { UserService }     from '../../providers/providers';
-import { UserModel }     from '../../models/user-model';
+
 
 /**
  * Generated class for the ProfilePage page.
@@ -57,11 +52,24 @@ export class ProfilePage {
     let modal = this.modalCtrl.create('LoginPage');
     modal.present();
   }
-
+  
  
-   
+  getPicture(){
+    this.imgService.showPicActionSheet()
+      .subscribe(data=>{
+  
+           this.userService
+                .uploadAvatar({"avatar":data})
+                .map(res => res.json())
+                .subscribe((data)=>{
+                    console.log(data)
+                    
+                });
 
-  getPicture() {
+        } );
+  }
+
+  getPicture2() {
 
     this.imgService.getPictureHtml5()
         .subscribe(data=>{

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 
-import { Observer } from 'rxjs'
+
 import { Observable }        from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
+//import { Subject }           from 'rxjs/Subject';
 import 'rxjs/add/observable/never';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMapTo';
@@ -21,7 +20,6 @@ import {File, FileEntry} from "@ionic-native/file";
 
 import { SystemService } from './system-service';
 import { NoticeService } from "./notice-service/notice-service";
-import { UserService } from "./user-service/user-service";
 
 import { IMAGE_SIZE, QUALITY_SIZE,} from "./Constant";
 
@@ -45,19 +43,18 @@ export class ImgService {
     private actionSheetCtrl: ActionSheetController,
     private systemService: SystemService,
     private noticeService: NoticeService,
-    private userService: UserService
   ) {
-      console.log('Hello ImgService');
+      //console.log('Hello ImgService');
 
   }
 
 
   showPicActionSheet() {
 
-        // if( !this.systemService.isMobile () ){
+      if( !this.systemService.isMobile () ){
 
-        //   return this.getPictureHtml5();
-        // }
+        return this.getPictureHtml5();
+      }
 
       return Observable.create((observer)=>{
 
@@ -266,7 +263,7 @@ export class ImgService {
 
           reader.readAsDataURL(file); 
 
-     });
+  });
     
   
 

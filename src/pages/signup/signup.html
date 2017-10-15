@@ -33,8 +33,8 @@
         <ion-item>
               <ion-input type="text"   formControlName="code" placeholder="验证码"></ion-input>
               
-              <button  type="button" ion-button outline item-end icon-left  class="code-button" [disabled]="!codeButtonActive" (click)="getCode(event)">
-                  {{codeButtonTitle}}
+              <button  type="button" ion-button outline item-end icon-left  class="code-button" [disabled]="!sms.active" (click)="getCode(event)">
+                  {{sms.title}}
               </button>
         </ion-item>
 

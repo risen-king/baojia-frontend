@@ -1,4 +1,9 @@
 
  <ion-tabs>
-    <ion-tab *ngFor="let tabRoot of tabRoots" [root]="tabRoot.root" tabTitle="{{tabRoot.tabTitle}}" tabIcon="{{tabRoot.tabIcon}}"></ion-tab>
+       <ng-container *ngFor="let item of tabRoots">
+          
+            <ion-tab *ngIf="item.root"   [root]="item.root"             tabTitle="{{item.tabTitle}}" tabIcon="{{item.tabIcon}}"></ion-tab>
+            <ion-tab *ngIf="!item.root"  (ionSelect)="item.ionSelect()" tabTitle="{{item.tabTitle}}" tabIcon="{{item.tabIcon}}"></ion-tab>
+
+        </ng-container>
 </ion-tabs> 

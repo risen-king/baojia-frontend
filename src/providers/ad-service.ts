@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-
-import { Observable }  from 'rxjs/Observable';
+//import { Observable }  from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-
-
-import { HttpServiceProvider as HttpService} from './http-service/http-service';
-import { CacheServiceProvider as CacheService} from './cache-service/cache-service';
+import { HttpService} from './http-service';
+ 
 
 /*
   Generated class for the AdServiceProvider provider.
@@ -21,9 +17,9 @@ export class AdService {
 
   constructor(
     public http: HttpService,
-    public cache: CacheService,
+     
   ) {
-    console.log('Hello AdService Provider');
+      //console.log('Hello AdService Provider');
   }
 
 
@@ -34,7 +30,7 @@ export class AdService {
     return this.http.get(url)
               .map( resp => {
                   let _res = resp.json();
-                  this.cache.write(url, _res);
+                   
                   return _res;
 
               });
